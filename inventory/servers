@@ -1,0 +1,7 @@
+[webservers]
+10.0.100.159 new_hostname=terraformweb1
+10.0.200.189 new_hostname=terraformweb2
+
+[webservers:vars]
+ansible_connection=ssh 
+ansible_user=ec2-user

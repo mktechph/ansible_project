@@ -1,0 +1,34 @@
+---
+- name: Configure web servers
+  hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Change hostname
+      command: hostnamectl set-hostname {{ new_hostname }}
+
+    - name: Install Apache server
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Install PHP package
+      dnf:
+        name: php
+        state: present
+
+    - name: Start and Enable Apache service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Copy the webpage files to the web servers
+      copy:
+        src: /html/index.php
+        dest: /var/www/html/index.php
+
+    - name: Reboot the servers
+      reboot:
+
